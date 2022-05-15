@@ -1,0 +1,83 @@
+1. (10 points) Suppose that an array does not have all elements that are distinct.
+    Show how you can use any algorithm that assumes distinct elements for computing
+    the maximum to solve the problem when elements are not distinct.
+
+    We will utilize the fast-parallel common CRCW algorithm with suboptimal work for
+    finding the maximum element in an array, which normally assumes distinct elements,
+    but instead we will be given an input array A with n elements that are not all distinct. 
+    The first step is initializing the isBiggest array so that all elements are true. This
+    will remain the same, regardless of whether the elements are distinct or not. The second
+    step is to compare every A[i] and A[j] in one time step. If an element A[i] is not larger
+    than A[j], then its corresponding element in isBiggest[i] is set to false. This means
+    that if the elements are the same, then the isBiggest[i] element will remain true.
+    The third step is to find the maximum. If the corresponding element in isBiggest[i] is
+    true, then set the max to A[i]. This means that even if there are multiple elements in
+    isBiggest[i] that are true, since there could be multiple elements that are the same
+    number, the maximum would still be the maximum number, because the maximum value did
+    not change, only the amount of times the maximum number remained true in the isBiggest
+    array. The output result would be the same. Max would be overwritten with the same
+    number, if it is overwritten.
+
+2. (10 points) Give a parallel algorithm on a CREW PRAM to determine the largest odd
+    number in a given array of positive integers. Assume that the array has size n and
+    the number of processors available is also n. The size n may not be a power of 2.
+    Your algorithm should not take more than O(log n) time.
+
+    Utilizing the binary tree based algorithm for finding the maximum element in an
+    array, the algorithm can be altered so that instead of finding the maximum, the
+    maximum odd number is found instead by including getting the odds element in each
+    block. To check for the maximum odd element, first find all the odd elements in the
+    block, then find the maximum of the odd elements in the same block utilizing a
+    sequential algorithm. After this, the binary tree based algorithm will be applied.
+
+3. (15 points) Give a parallel algorithm on a CREW PRAM with time complexity O(logn)
+    and work complexity O(n) to compute the inclusive parallel prefix sum of an array
+    of size n by combining two algorithms: sequential prefix sum that takes O(n) time
+    and O(n) work and a non-optimal parallel prefix algorithm that takes O(log n) time
+    and O(n log n) work.
+
+    // Michael
+    We can simply utilize the binary tree CREW PRAM algorithm:
+
+    for all i in [0, n - 1]: in parallel do:
+        C[i] := A[i]
+    for (int d = 1; d < n; d = 2d)
+        for all i in [1, n - 1]: in parallel do:
+            if (i - d >= 0)
+                C[i] := C[i] + C[i - d]
+    
+    // Leilani
+
+
+4. (15 points) Given an integer array A and two numbers x and y, give a parallel
+    algorithm on a CREW PRAM to compute an array D such that D consists only of entries
+    in A that are greater than or equal to x and less than or equal to y. The order of
+    entries in D should be same as that in A.
+
+    // Michael
+    B := Empty array
+
+    Step 1 in O(1) time:
+        For each element in Array:
+            if element >= x AND element <= y:
+                Add element to B
+    
+    // Leilani
+    Suppose we are given an array A of integers, and integers x and y, and we are to
+    return array D that contains elements in A that are greater than or equal to x
+    and less then than or equal to y, in the same order as these elements appear in
+    array A. We create another array B such that B[j] equals 1 if A[j] satisfies the
+    filter predicate and 0 otherwise. The parallel prefix of the array B gives the
+    index where the entries of A should go into the array D. 
+    
+5. (20 points) This is a programming assignment. Give a parallel program that takes as
+    input a real vector x and returns its Euclidean length.
+
+    See source code: HW1.cpp
+
+6. (30 points) This is a programming assignment. Give a parallel program that takes as
+    input a sorted array A of integers of size n and returns another sorted array B such
+    that B has no duplicates. You are allowed to use an additional O(n) space in your
+    algorithm.
+
+    See source code: HW1.cpp

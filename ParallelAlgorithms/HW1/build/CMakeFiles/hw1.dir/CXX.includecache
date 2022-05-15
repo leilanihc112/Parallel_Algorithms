@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/michaelciraci/Dropbox/UTAustin/ParallelAlgorithms/HW1/src/hw1.cpp
+iostream
+-
+omp.h
+-
+hw1.h
+/Users/michaelciraci/Dropbox/UTAustin/ParallelAlgorithms/HW1/src/hw1.h
+
+/Users/michaelciraci/Dropbox/UTAustin/ParallelAlgorithms/HW1/src/hw1.h
+vector
+-
+
+/Users/michaelciraci/Dropbox/UTAustin/ParallelAlgorithms/HW1/src/main.cpp
+iostream
+-
+hw1.h
+/Users/michaelciraci/Dropbox/UTAustin/ParallelAlgorithms/HW1/src/hw1.h
+
